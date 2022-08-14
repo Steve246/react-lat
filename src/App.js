@@ -1,54 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Route, Routes, Link } from "react-router-dom";
+import { Home } from "./Components/Home";
 
-import { useState } from 'react';
-import ItermComponent from './component/ItermComponent';
-import SearchComponent from './component/SearchComponent';
-
-
+import BookLayout from "./Components/BookLayout";
+import BookRoutes from "./Components/BookRoutes";
 
 const App = () => {
-
-  const list = [
-      {
-        title: 'React',
-        url: 'https://reactjs.org/',
-        author: 'Jordan Walke',
-        num_comments: 3,
-        points: 4,
-        objectID: 0,
-      },
-      {
-        title: 'Redux',
-        url: 'https://redux.js.org/',
-        author: 'Dan Abramov, Andrew Clark',
-        num_comments: 2,
-        points: 5,
-        objectID: 1,
-      },
-    ];
-
-    const [searchTerm, setSearchTerm] = useState('')
-
-    const handleSearch = (event) => {
-      console.log(event.target.value)
-      setSearchTerm(event.target.value)
-    }
-
-    const searchedStories = list.filter((story) =>
-      story.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-
-  
   return (
-    <div className="App">
-      <SearchComponent searchHandle = {handleSearch}/>
-      <ItermComponent  searchStory = {searchedStories}/>
-    </div>
+    <>
+      <Routes>
+        <Route path="/books" element={<h1> Extra Content </h1>} />
+      </Routes>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/"> Home </Link>
+          </li>
+          <li>
+            <Link to="/books"> Book List </Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/books" element={<BookList />} /> */}
+        {/* <Route path="/books/:id" element={<Book />} /> */}
+
+        {/* <Route path="/books/new" element={<NewBook />} /> */}
+
+        {/* <Route path="/books" element={<BookLayout />}>
+          <Route index element={<BookList />} />
+          <Route path=":id" element={<Book />} />
+          <Route path="new" element={<NewBook />} />
+        </Route> */}
+
+        {/* bisa jadi yang bawah */}
+
+        <Route path="/books/*" element={<BookRoutes />} />
+
+        <Route path="*" element={<h1> Not Found </h1>} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
-
-
